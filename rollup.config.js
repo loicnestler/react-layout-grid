@@ -25,19 +25,19 @@ export default {
 		}
 	],
 	plugins : [
-		// external(),
+		external(),
 		// postcss({
 		// 	modules : true
 		// }),
-		// url(),
+		url(),
 		// svgr(),
 		babel({
 			exclude : 'node_modules/**',
 			plugins : [
 				'external-helpers'
 			]
-		})
-		// resolve(),
-		// commonjs()
+		}),
+		resolve(),
+		commonjs()
 	]
 }
