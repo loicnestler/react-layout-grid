@@ -6,34 +6,38 @@ import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
 
+import { uglify } from 'rollup-plugin-uglify'
+
 import pkg from './package.json'
 
 export default {
-  input: 'src/index.js',
-  output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      sourcemap: true
-    },
-    {
-      file: pkg.module,
-      format: 'es',
-      sourcemap: true
-    }
-  ],
-  plugins: [
-    external(),
-    postcss({
-      modules: true
-    }),
-    url(),
-    svgr(),
-    babel({
-      exclude: 'node_modules/**',
-      plugins: [ 'external-helpers' ]
-    }),
-    resolve(),
-    commonjs()
-  ]
+	input   : 'src/index.js',
+	output  : [
+		{
+			file      : pkg.main,
+			format    : 'cjs',
+			sourcemap : process.env.NODE_ENV !== 'production'
+		},
+		{
+			file      : pkg.module,
+			format    : 'es',
+			sourcemap : process.env.NODE_ENV !== 'production'
+		}
+	],
+	plugins : [
+		// external(),
+		// postcss({
+		// 	modules : true
+		// }),
+		// url(),
+		// svgr(),
+		babel({
+			exclude : 'node_modules/**',
+			plugins : [
+				'external-helpers'
+			]
+		})
+		// resolve(),
+		// commonjs()
+	]
 }
